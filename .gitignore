@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# jetbrains IDE
+.idea/
+
 # Object files
 *.o
 *.ko
