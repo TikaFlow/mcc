@@ -13,6 +13,7 @@ $(EXEC): $(HEADER) $(SRCS)
 	gcc -o $@ -g -Wall -DDEBUG $^
 
 test: $(EXEC)
+	$(EXEC) test/test.c
 	@echo "All Tests passed!"
 
 clean:

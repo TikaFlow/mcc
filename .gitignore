@@ -4,7 +4,13 @@
 # jetbrains IDE
 .idea/
 
+# Build results
+build/
+test/
+mcc
+
 # Object files
+*.s
 *.o
 *.ko
 *.obj

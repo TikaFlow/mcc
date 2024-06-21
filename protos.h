@@ -18,10 +18,17 @@ Token *lex(char *file);
 // parser.c
 ASTNode *parse(Token *tokens);
 
+// analyzer.c
+ASTNode *analyze(ASTNode *node);
+
 // gen.c
 void gen(ASTNode *node);
 
 // tool.c
+char *pos_to_str(Pos *pos);
+
+int char_index(char *s, int c);
+
 char *format_str(char *fmt, ...);
 
 void debug(char *str);

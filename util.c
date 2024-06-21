@@ -4,6 +4,24 @@
 
 #include "protos.h"
 
+char *pos_to_str(Pos *pos) {
+    char *str;
+    if (pos) {
+        str = format_str(" at %s:%d, %d", pos->file, pos->line, pos->col);
+    } else {
+        str = "";
+    }
+
+    return str;
+}
+
+int char_index(char *s, int c) {
+    char *p;
+
+    p = strchr(s, c);
+    return p ? (int) (p - s) : NOT_FOUND;
+}
+
 char *format_str(char *fmt, ...) {
     char *str = malloc(sizeof(char) * MAX_TEXT);
     if (!str) {
