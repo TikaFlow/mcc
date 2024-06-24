@@ -23,7 +23,7 @@ int char_index(char *s, int c) {
 }
 
 char *format_str(char *fmt, ...) {
-    char *str = malloc(sizeof(char) * MAX_TEXT);
+    char *str = calloc(MAX_TEXT, sizeof(char));
     if (!str) {
         error("Out of memory.");
     }

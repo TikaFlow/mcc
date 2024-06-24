@@ -59,49 +59,7 @@ int main(int argc, char **argv) {
 
     Token *tokens = lex(in);
 
-    // DEBUG
-    Token *tk = tokens;
-    while (tk) {
-        switch (tk->type) {
-            case T_INTEGER:
-                printf("INT: %s: %ld\n", tk->type_name, tk->v_int);
-                break;
-            case T_INTEGER_U:
-                printf("U: %s: %ld\n", tk->type_name, tk->v_int);
-                break;
-            case T_INTEGER_L:
-                printf("L: %s: %ld\n", tk->type_name, tk->v_int);
-                break;
-            case T_INTEGER_UL:
-                printf("UL: %s: %ld\n", tk->type_name, tk->v_int);
-                break;
-            case T_INTEGER_LL:
-                printf("LL: %s: %ld\n", tk->type_name, tk->v_int);
-                break;
-            case T_INTEGER_ULL:
-                printf("ULL: %s: %ld\n", tk->type_name, tk->v_int);
-                break;
-            case T_FLOATING:
-                printf("D: %s: %lf\n", tk->type_name, tk->v_float);
-                break;
-            case T_FLOATING_F:
-                printf("F: %s: %lf\n", tk->type_name, tk->v_float);
-                break;
-            case T_FLOATING_L:
-                printf("LD: %s: %lf\n", tk->type_name, tk->v_float);
-                break;
-            case T_STRING:
-            case T_IDENTIFIER:
-                printf("%s: \"%s\"\n", tk->type_name, tk->v_string);
-                break;
-            default:
-                printf("%s\n", tk->type_name);
-        }
-        tk = tk->next;
-    }
-    // DEBUG END
-
-    // ASTNode *ast = parse(tokens);
+    ASTNode *ast = parse(tokens);
 
     // ASTNode *tree = analyze(ast);
 

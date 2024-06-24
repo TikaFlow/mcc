@@ -40,7 +40,7 @@ typedef int bool;
 typedef unsigned char byte;
 
 // types
-enum {
+enum LogLevel {
     M_DEBUG,
     M_INFO,
     M_WARN,
@@ -48,7 +48,7 @@ enum {
     M_FATAL,
 };
 
-enum {
+enum TokenType {
     T_EOF = 256,
     // operators // precedence
     T_COMMA, // 1
@@ -81,7 +81,7 @@ enum {
     T_FLOATING, T_FLOATING_F, T_FLOATING_L,
 };
 
-enum {
+enum LiteralType {
     L_NONE,
     L_CHAR, L_BINARY, L_OCTAL, L_HEXADECIMAL,
     L_STRING = T_STRING,
@@ -89,7 +89,7 @@ enum {
     L_FLOAT, L_FLOAT_F, L_FLOAT_L,
 };
 
-typedef struct {
+typedef struct pos {
     char *file;
     int line;
     int col;
@@ -97,11 +97,11 @@ typedef struct {
 
 typedef struct token {
     int type;
-    char *type_name;
+    char *type_name; // type desc
     union {
-        long v_int;
-        double v_float;
-        char *v_string;
+        long v_int; // integer value
+        double v_float; // float value
+        char *v_string; // identifier name or string literal
     };
     Pos *pos; // where the token from
     struct token *next;

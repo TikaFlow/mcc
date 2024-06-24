@@ -9,7 +9,7 @@ static FILE *in_file;
 static Pos cur_pos;
 
 static Pos *new_pos() {
-    Pos *pos = malloc(sizeof(Pos));
+    Pos *pos = calloc(1, sizeof(Pos));
     if (!pos) {
         error(format_str("%s in %s", MALLOC_FAIL, __func__));
         return NULL;
@@ -21,11 +21,11 @@ static Pos *new_pos() {
 }
 
 static Token *new_token() {
-    Token *token = malloc(sizeof(Token));
+    Token *token = calloc(1, sizeof(Token));
     if (!token) {
         fatal(format_str("%s in %s", MALLOC_FAIL, __func__));
     }
-    token->next = NULL;
+    token->type_name = "head";
 
     return token;
 }
@@ -460,7 +460,7 @@ static int get_literal(char **const_str, int c) {
  * the value is stored in the token->v_int or token->v_float
  */
 static void parse_const(Token *token, int c) {
-    char *const_str = malloc(sizeof(char) * MAX_TEXT);
+    char *const_str = calloc(MAX_TEXT, sizeof(char));
     if (!const_str) {
         fatal(format_str("%s in %s", MALLOC_FAIL, __func__));
     }
@@ -692,7 +692,7 @@ static void check_keyword(char *const_str, Token *token) {
 
 static void parse_indent(Token *token, int c) {
     int i = 0;
-    char *const_str = malloc(sizeof(char) * MAX_TEXT);
+    char *const_str = calloc(MAX_TEXT, sizeof(char));
     if (!const_str) {
         fatal(format_str("%s in %s", MALLOC_FAIL, __func__));
     }
@@ -972,8 +972,8 @@ static Token *get_token() {
 }
 
 Token *lex(char *file) {
-    Token *token_head = NULL;
-    Token *token_tail = NULL;
+    Token *token_head = new_token(); // head is a empty token
+    Token *token_tail = token_head;
     Token *token;
 
     if (!(in_file = fopen(file, "r"))) {
@@ -990,13 +990,11 @@ Token *lex(char *file) {
         }
 
         // get a new token
-        if (token_head) {
-            token_tail->next = token;
-            token_tail = token;
-        } else {
-            token_head = token_tail = token;
-        }
+        token_tail->next = token;
+        token_tail = token;
     }
+
+    fclose(in_file);
 
     return token_head;
 }

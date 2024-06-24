@@ -1,5 +1,5 @@
 HEADER=defs.h protos.h
-SRCS=mcc.c lexer.c util.c
+SRCS=mcc.c util.c lexer.c parser.c
 EXEC=./mcc
 
 STARTER=/lib/x86_64-linux-gnu/crt1.o
